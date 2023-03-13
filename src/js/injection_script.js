@@ -1787,6 +1787,22 @@ ensureDomLoaded(() => {
             }, 10000)
         }, true)
     })
+    domainBypass("share.techymedies.com", () => {
+        crowdPath(location.pathname.split("/").join(""))
+        crowdBypass(() => {
+            setTimeout(() => {
+                ifElement("form", form => {
+                    $.ajax({
+                        dataType: "json",
+                        url: form.action,
+                        type: "POST",
+                        data: $(form).serialize(),
+                        success: res => contributeAndNavigate(res.url)
+                    })
+                })
+            }, 5000)
+        }, true)
+    })
     domainBypass("adbull.me", () => ifElement("form#setc", ({ action }) => {
         unsafelyAssignWithReferer(location.href, action)
     }))
